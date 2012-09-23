@@ -74,7 +74,7 @@ Although the `info` function is reasonably fast, you should not rely on calling 
 
 ## Contributing Code
 
-We love pull requests. But you gotta make sure the tests still pass. cd to the `tests` folder and run `node tests.js`. If it blows up, your code isn't ready.
+We love pull requests. But you gotta make sure the tests still pass. cd to the `tests` folder and run `node test.js`. If it blows up, your code isn't ready.
 
 ## Contact
 
