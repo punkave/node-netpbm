@@ -1,10 +1,10 @@
-= node-netpbm
+# node-netpbm
 
 node-netpbm scales and converts GIF, JPEG and PNG images asynchronously, without running out of memory, even if the original image is very large. It does this via the netpbm utilities, a classic package of simple Unix tools that convert image formats and perform operations row-by-row so that memory is not exhausted. If you have ever tried to import 16-megapixel JPEGs with gd or imagemagick, you know exactly why you need this package.
 
 node-netpbm also provides a simple way to check the dimensions of an existing image file without paying the full price of converting it.
 
-== System Requirements
+## System Requirements
 
 You must have the netpbm utilities installed, and you must have a modern version due to node-netpbm's support for preserving the alpha channel of PNG images. On Ubuntu systems this is all you need to do:
 
@@ -12,7 +12,7 @@ You must have the netpbm utilities installed, and you must have a modern version
 
 `node-netpbm` is designed for use on Linux, MacOS X and other Unix systems. No guarantees are made that it will work on Windows systems or anywhere else where shell pipelines don't behave reasonably and/or simple utilities like `head` and `tail` do not exist. But we'll accept pull requests. Don't break the tests!
 
-== Converting and scaling images
+## Converting and scaling images
 
 node-netpbm offers a very simple API for converting and scaling images:
 
@@ -32,7 +32,7 @@ This code creates an image as close to 300x400 pixels as possible without distor
 
 node-netpbm will automatically detect file types from file extensions. Uppercase is automatically converted to lowercase in file extensions, and jpeg is accepted as a synonym for jpg.
 
-== Options for converting and scaling images
+## Options for converting and scaling images
 
 The third parameter to `convert` is an object containing options such as `alpha`, `width`, `height` and `limit`. 
 
@@ -50,7 +50,7 @@ A common use for the third approach is to specify the width you typically want b
 
 * Additional options exist for advanced uses such as overriding the netpbm utilities used for each conversion. See the source code for details.
 
-== Obtaining image dimensions
+## Obtaining image dimensions
 
 Here's how:
 
@@ -71,3 +71,8 @@ The `type` property will contain `gif`, `jpg` or `png`. `width` and `height` are
 You can also call `info` with three parameters: the filename, an options object, and the callback. Usually you won't need this, but `info` does support the same advanced parameters for overriding types as `convert` does. `info` currently does not support the `limit` option, however obtaining image dimensions has a much smaller impact on the system than actually converting or scaling a complete image.
 
 Although the `info` function is reasonably fast, you should not rely on calling it every time you display an image. For good performance you should cache everything you know about each image in your database.
+
+## Contact
+
+Created at [P'unk Avenue](http://punkave.com), an amazing design-and-build firm in South Philly. Feel free to drop [Tom Boutell](mailto:tom@punkave.com) a line with questions. Better yet, send pull requests and open issues on [http://github.com/punkave/node-netpbm](github).
+
