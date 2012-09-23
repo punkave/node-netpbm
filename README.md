@@ -6,11 +6,11 @@ node-netpbm also provides a simple way to check the dimensions of an existing im
 
 ## System Requirements
 
-You must have the netpbm utilities installed, and you must have a modern version due to node-netpbm's support for preserving the alpha channel of PNG images. On Ubuntu systems this is all you need to do:
+You must have the [netpbm utilities](http://netpbm.sourceforge.net) installed. For best results, install the "stable" or "advanced" version from the netpbm site. You can also use your operating system's package manager if you can live without support for preserving alpha channels in PNGs (as of this writing most Linux distributions have an older version of netpbm that can't do this). On Ubuntu systems this is all you need to do:
 
     apt-get install netpbm
 
-`node-netpbm` is designed for use on Linux, MacOS X and other Unix systems. No guarantees are made that it will work on Windows systems or anywhere else where shell pipelines don't behave reasonably and/or simple utilities like `head` and `tail` do not exist. But we'll accept pull requests. Don't break the tests!
+`node-netpbm` is designed for use on Linux, MacOS X and other Unix systems. No guarantees are made that it will work on Windows systems or anywhere else where shell pipelines don't behave reasonably and/or simple utilities like `head` and `tail` do not exist. But we'll accept pull requests. Make sure the tests pass!
 
 ## Converting and scaling images
 
@@ -44,7 +44,7 @@ The third parameter to `convert` is an object containing options such as `alpha`
 
 * If you specify both `width` and `height` properties for the options parameter, the output image will be as close to that size as possible without changing the aspect ratio of the original. For instance, if the original is 2000x2000 and you specify 300x400, the output will be 300x300. If the original is 500x5000 and you specify 300x400, the output will be 40x400. 
 
-A common use for the third approach is to specify the width you typically want but also specify a maximum width to avoid unwanted results if the original is extremely tall, like an infographic.
+A common use for the third approach is to specify the width you typically want but also specify a maximum height to avoid unwanted results if the original is extremely tall, like an infographic.
 
 * If you are processing many image uploads for many users simultaneously, spawning lots of image processing Unix pipelines asynchronously could use a lot of resources. To prevent this, node-netpbm automatically throttles the number of simultaneously pending pipelines to 10. Additional requests will automatically wait until a slot is available. You can override this by setting the `limit` option to a different value. There isn't much benefit in setting this option higher than the number of cores available to you. In fact, if you are using the cluster module to run a node process for each core, you might want to set `limit` to 1 so that each process does not spawn up to 10 image pipelines.
 
@@ -71,6 +71,10 @@ The `type` property will contain `gif`, `jpg` or `png`. `width` and `height` are
 You can also call `info` with three parameters: the filename, an options object, and the callback. Usually you won't need this, but `info` does support the same advanced parameters for overriding types as `convert` does. `info` currently does not support the `limit` option, however obtaining image dimensions has a much smaller impact on the system than actually converting or scaling a complete image.
 
 Although the `info` function is reasonably fast, you should not rely on calling it every time you display an image. For good performance you should cache everything you know about each image in your database.
+
+## Contributing Code
+
+We love pull requests. But you gotta make sure the tests still pass. cd to the `tests` folder and run `node tests.js`. If it blows up, your code isn't ready.
 
 ## Contact
 
