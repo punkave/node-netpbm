@@ -6,7 +6,7 @@ node-netpbm also provides a simple way to check the dimensions of an existing im
 
 ## System Requirements
 
-You must have the [netpbm utilities](http://netpbm.sourceforge.net) installed. For best results, install the "stable" or "advanced" version from the netpbm site. You can also use your operating system's package manager if you can live without support for preserving alpha channels in PNGs (as of this writing most Linux distributions have an older version of netpbm that can't do this). On Ubuntu systems this is all you need to do:
+You must have the [netpbm utilities](http://netpbm.sourceforge.net) installed. For best results, [install the "stable" or "advanced" version](http://netpbm.sourceforge.net/getting_netpbm.php) from the netpbm site. You can also use your operating system's package manager if you can live without support for preserving alpha channels in PNGs (as of this writing most Linux distributions have an older version of netpbm that can't do this). On Ubuntu systems this is all you need to do:
 
     apt-get install netpbm
 
@@ -54,15 +54,15 @@ A common use for the third approach is to specify the width you typically want b
 
 Here's how:
 
-var info = require('netpbm').info;
+    var info = require('netpbm').info;
 
-info('file.jpg', function(err, result) {
-  if (!err) {
-    console.log("Type: " + result.type + 
-      " width: " + result.width + 
-      " height: " + result.height);
-  }
-});
+    info('file.jpg', function(err, result) {
+      if (!err) {
+        console.log("Type: " + result.type + 
+          " width: " + result.width + 
+          " height: " + result.height);
+      }
+    });
 
 Like `convert`, `info` is asynchronous. If there is no error, the type, width and height are passed to the callback via the `result` object. 
 
