@@ -177,7 +177,7 @@ module.exports.convert = function(fileIn, fileOut, options, callback)
     function execPipeline() {
       if (active >= limit) {
         setTimeout(function() {
-            pipeline();
+            execPipeline();
             return;
           },
           100);
