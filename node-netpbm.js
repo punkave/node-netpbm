@@ -120,6 +120,12 @@ module.exports.convert = function(fileIn, fileOut, options, callback)
           callback(err + ': ' + stderr);
           return;
         }
+
+        if (!stdout) {
+          callback("No netpbm output");
+          return;
+        }
+
         var lines = stdout.split(/[\r\n]+/);
         // PAM files are different, sigh
         if (lines[1].match(/^WIDTH (\d+)/) && lines[2].match(/^HEIGHT (\d+)/))
