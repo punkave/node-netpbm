@@ -76,6 +76,10 @@ Although the `info` function is reasonably fast, you should not rely on calling 
 
 We love pull requests. But you gotta make sure the tests still pass. cd to the `tests` folder and run `node test.js`. If it blows up, your code isn't ready.
 
+## Changelog
+
+1.0.0: Prevent `node-netpbm` from crashing if the netpbm utilities produce no output without an error code (thanks to Alexander Johansson). Also decided to declare 1.0.0 stable since this is the first change in many moons.
+
 ## Contact
 
 Created at [P'unk Avenue](http://punkave.com), an amazing design-and-build firm in South Philly. Feel free to drop [Tom Boutell](mailto:tom@punkave.com) a line with questions. Better yet, send pull requests and open issues on [http://github.com/punkave/node-netpbm](github).
