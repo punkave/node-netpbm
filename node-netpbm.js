@@ -187,6 +187,7 @@ module.exports.convert = function(fileIn, fileOut, options, callback)
             return;
           },
           100);
+        return;
       }
       active++;
       child_process.exec(cmd, function(err, stdout, stderr) {
