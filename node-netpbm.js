@@ -169,13 +169,13 @@ module.exports.convert = function(fileIn, fileOut, options, callback)
       // Size unchanged
     }
 
-    // Watermark image is centered on the main image. Must be a .pam file 
+    // Watermark image is centered on the main image. Must be a .pam file
     // (with an alpha channel, for best results)
     if (options.watermark) {
       cmd += "| pamcomp -align=center -valign=middle " + escapeshellarg(options.watermark) + ' ';
     }
 
-    var exporter = (typesByName[typeOut].sameTypeExporter && (typeIn === typeOut)) ? typesByName[typeOut].sameTypeExporter : typesByName[typeOut].exporter; 
+    var exporter = (typesByName[typeOut].sameTypeExporter && (typeIn === typeOut)) ? typesByName[typeOut].sameTypeExporter : typesByName[typeOut].exporter;
     cmd += "| " + exporter + "> " + escapeshellarg(fileOut);
 
     execPipeline();
@@ -241,8 +241,8 @@ module.exports.convert = function(fileIn, fileOut, options, callback)
 
   // http://phpjs.org/functions/escapeshellarg:866
   function escapeshellarg(arg) {
-    // Quote and escape an argument for use in a shell command  
-    // 
+    // Quote and escape an argument for use in a shell command
+    //
     // version: 1109.2015
     // discuss at: http://phpjs.org/functions/escapeshellarg
     // +   original by: Felix Geisendoerfer (http://www.debuggable.com/felix)
@@ -250,12 +250,11 @@ module.exports.convert = function(fileIn, fileOut, options, callback)
     // *     example 1: escapeshellarg("kevin's birthday");
     // *     returns 1: "'kevin\'s birthday'"
     var ret = '';
- 
+
     ret = arg.replace(/[^\\]'/g, function (m, i, s) {
         return m.slice(0, 1) + '\\\'';
     });
- 
+
     return "'" + ret + "'";
   }
 };
-
