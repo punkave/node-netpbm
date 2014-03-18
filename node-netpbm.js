@@ -106,6 +106,16 @@ module.exports.convert = function(fileIn, fileOut, options, callback)
     var cmd = typesByName[typeIn].importer + "< " + escapeshellarg(fileIn) + " ";
 
     if (options.infoOnly) {
+      if (active >= limit) {
+
+        setTimeout(function() {
+            preparePipeline();
+            return;
+          },
+          100);
+        return;
+      }
+      active++;
       var result = {};
       // Due to the row-by-row processing of the netpbm utilities,
       // reading the width and height from the intermediate
@@ -116,6 +126,7 @@ module.exports.convert = function(fileIn, fileOut, options, callback)
       cmd += "| head -3 ";
       result.type = typeIn;
       child_process.exec(cmd, function(err, stdout, stderr) {
+        active--;
         if (err) {
           callback(err + ': ' + stderr);
           return;
