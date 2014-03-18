@@ -1,6 +1,11 @@
 var child_process = require('child_process');
+var async = require('async');
 
-var active = 0;
+var exec_queue = async.queue(function(command, callback) {
+  child_process.exec(command, callback);
+});
+
+exec_queue.concurrency = 10;
 
 // Callback's first argument is error if any. Second
 // argument (if no error) is an object with width, height
@@ -30,7 +35,9 @@ module.exports.convert = function(fileIn, fileOut, options, callback)
   // Additional requests wait patiently for their turn. If you are using the cluster
   // module you might want a lower limit as each node process gets its own pool
   // of image conversion processes
-  var limit = options.limit ? options.limit : 10;
+  if (options.limit) {
+    exec_queue.concurrency = options.limit;
+  }
 
   var typeMap = options.typeMap ? options.typeMap : {
     'jpeg': 'jpg'
@@ -106,16 +113,6 @@ module.exports.convert = function(fileIn, fileOut, options, callback)
     var cmd = typesByName[typeIn].importer + "< " + escapeshellarg(fileIn) + " ";
 
     if (options.infoOnly) {
-      if (active >= limit) {
-
-        setTimeout(function() {
-            preparePipeline();
-            return;
-          },
-          100);
-        return;
-      }
-      active++;
       var result = {};
       // Due to the row-by-row processing of the netpbm utilities,
       // reading the width and height from the intermediate
@@ -125,8 +122,7 @@ module.exports.convert = function(fileIn, fileOut, options, callback)
       // inefficient as it seems
       cmd += "| head -3 ";
       result.type = typeIn;
-      child_process.exec(cmd, function(err, stdout, stderr) {
-        active--;
+      exec_queue.push(cmd, function(err, stdout, stderr) {
         if (err) {
           callback(err + ': ' + stderr);
           return;
@@ -189,30 +185,16 @@ module.exports.convert = function(fileIn, fileOut, options, callback)
     var exporter = (typesByName[typeOut].sameTypeExporter && (typeIn === typeOut)) ? typesByName[typeOut].sameTypeExporter : typesByName[typeOut].exporter;
     cmd += "| " + exporter + "> " + escapeshellarg(fileOut);
 
-    execPipeline();
-
-    function execPipeline() {
-      if (active >= limit) {
-        setTimeout(function() {
-            execPipeline();
-            return;
-          },
-          100);
-        return;
+    exec_queue.push(cmd, function(err, stdout, stderr) {
+      if (err) {
+        callback(err + ': ' + stderr);
       }
-      active++;
-      child_process.exec(cmd, function(err, stdout, stderr) {
-        active--;
-        if (err) {
-          callback(err + ': ' + stderr);
-        }
-        else
-        {
-          // All is well - the desired result is in fileOut
-          callback(null);
-        }
-      });
-    }
+      else
+      {
+        // All is well - the desired result is in fileOut
+        callback(null);
+      }
+    });
   }
 
   function typeByExtension(filename) {
@@ -232,7 +214,7 @@ module.exports.convert = function(fileIn, fileOut, options, callback)
 
   function typeByHeader(filename, callback) {
     var cmd = 'file ' + escapeshellarg(filename);
-    child_process.exec(cmd, function(err, stdout, stderr) {
+    exec_queue.push(cmd, function(err, stdout, stderr) {
       if (err) {
         callback(err + ': ' + stderr);
         return;

@@ -16,7 +16,9 @@
   "scripts": {
     "test": "cd tests; node test.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "async": "~0.2.10"
+  },
   "devDependencies": {},
   "optionalDependencies": {},
   "engines": {
