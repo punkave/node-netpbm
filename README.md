@@ -78,6 +78,8 @@ We love pull requests. But you gotta make sure the tests still pass. cd to the `
 
 ## Changelog
 
+1.0.1: The `limit` option is respected even when only fetcing `info` to prevent crashes due to resource starvation. Thanks to Alex / Ajax.
+
 1.0.0: Prevent `node-netpbm` from crashing if the netpbm utilities produce no output without an error code (thanks to Alexander Johansson). Also decided to declare 1.0.0 stable since this is the first change in many moons.
 
 ## Contact
