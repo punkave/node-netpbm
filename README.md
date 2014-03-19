@@ -78,7 +78,7 @@ We love pull requests. But you gotta make sure the tests still pass. cd to the `
 
 ## Changelog
 
-1.0.2: Child processes handled by [async.queue](https://github.com/caolan/async#queue)
+1.0.2: Child process concurrency managed by [async.queue](https://github.com/caolan/async#queue). No change in documented behavior.
 
 1.0.1: The `limit` option is respected even when only fetcing `info` to prevent crashes due to resource starvation. Thanks to Alex / Ajax.
 
