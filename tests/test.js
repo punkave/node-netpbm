@@ -71,7 +71,14 @@ function test5() {
 
 function test6() {
   process.stdout.write('test 6: ');
-  convert('sample.mystery', 'test6.png', { alpha: alpha, 'height': 300 }, next('test6.png', 'png', 279, 300, null));
+  convert('sample.mystery', 'test6.png', { alpha: alpha, 'height': 300 }, next('test6.png', 'png', 279, 300, test7));
+}
+
+// Output image filename without extension, but type specified in typeOut param
+
+function test7() {
+  process.stdout.write('test 7: ');
+  convert('sample.png', 'test7', { alpha: alpha, typeOut: "jpg", height: 300 }, next('test7', 'jpg', 279, 300, null));
 }
 
 // Confirm that we like the results, then call the next test if any
