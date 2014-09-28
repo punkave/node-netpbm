@@ -81,8 +81,8 @@ module.exports.convert = function(fileIn, fileOut, options, callback)
     typesByName[types[i].name] = types[i];
   }
 
-  var typeOut;
-  if (!options.infoOnly) {
+  var typeOut = options.typeOut;
+  if (!options.infoOnly && !typeOut) {
     var typeOut = typeByExtension(fileOut);
     if (!typeOut) {
       callback('unsupported output file extension: ' + fileOut);
