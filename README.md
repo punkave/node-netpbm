@@ -48,7 +48,7 @@ A common use for the third approach is to specify the width you typically want b
 
 * If you are processing many image uploads for many users simultaneously, spawning lots of image processing Unix pipelines asynchronously could use a lot of resources. To prevent this, node-netpbm automatically throttles the number of simultaneously pending pipelines to 10. Additional requests will automatically wait until a slot is available. You can override this by setting the `limit` option to a different value. There isn't much benefit in setting this option higher than the number of cores available to you. In fact, if you are using the cluster module to run a node process for each core, you might want to set `limit` to 1 so that each process does not spawn up to 10 image pipelines.
 
-* If you specify `typeOut` option, the output image will have type specified in this option("png", "jpg" or "gif"). If output filename specified with extension it will be ignored. This option usefull if you want to save output image to file without extension.
+* If you specify the `typeOut` option, the output image will have the type specified by this option, which may be `png`, `jpg` or `gif`. This overrides the automatic detection that normally takes place based on the file extension of your output filename.
 
 * Additional options exist for advanced uses such as overriding the netpbm utilities used for each conversion. See the source code for details.
 
@@ -79,6 +79,8 @@ Although the `info` function is reasonably fast, you should not rely on calling 
 We love pull requests. But you gotta make sure the tests still pass. cd to the `tests` folder and run `node test.js`. If it blows up, your code isn't ready.
 
 ## Changelog
+
+1.1.0: `typeOut` option for times when you want to specify the output format explicitly without relying on a file extension in the output filename. Thanks to [calibr](https://github.com/calibr).
 
 1.0.2: Child process concurrency managed by [async.queue](https://github.com/caolan/async#queue). No change in documented behavior.
 
