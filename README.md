@@ -48,6 +48,8 @@ A common use for the third approach is to specify the width you typically want b
 
 * If you are processing many image uploads for many users simultaneously, spawning lots of image processing Unix pipelines asynchronously could use a lot of resources. To prevent this, node-netpbm automatically throttles the number of simultaneously pending pipelines to 10. Additional requests will automatically wait until a slot is available. You can override this by setting the `limit` option to a different value. There isn't much benefit in setting this option higher than the number of cores available to you. In fact, if you are using the cluster module to run a node process for each core, you might want to set `limit` to 1 so that each process does not spawn up to 10 image pipelines.
 
+* If you specify `typeOut` option, the output image will have type specified in this option("png", "jpg" or "gif"). If output filename specified with extension it will be ignored. This option usefull if you want to save output image to file without extension.
+
 * Additional options exist for advanced uses such as overriding the netpbm utilities used for each conversion. See the source code for details.
 
 ## Obtaining image dimensions
