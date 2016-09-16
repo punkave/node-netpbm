@@ -158,6 +158,7 @@ module.exports.convert = function(fileIn, fileOut, options, callback)
       return;
     }
 
+    var scaler, fitter;
     if (options.alpha) {
       scaler = 'pamscale ';
       fitter = '-xyfit ';
