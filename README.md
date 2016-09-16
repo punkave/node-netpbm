@@ -80,6 +80,8 @@ We love pull requests. But you gotta make sure the tests still pass. cd to the `
 
 ## Changelog
 
+1.1.1: don't leak global variables. Thanks to Nathan Wall.
+
 1.1.0: `typeOut` option for times when you want to specify the output format explicitly without relying on a file extension in the output filename. Thanks to [calibr](https://github.com/calibr).
 
 1.0.2: Child process concurrency managed by [async.queue](https://github.com/caolan/async#queue). No change in documented behavior.

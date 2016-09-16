@@ -2,7 +2,7 @@
   "author": "P'unk Avenue LLC <tom@punkave.com> (http://punkave.com/)",
   "name": "netpbm",
   "description": "Convert and scale JPEG, GIF and PNG images without running out of memory, even when the images are very large. Fully asynchronous.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "license": "MIT",
   "engines": {
     "node": ">=0.8"
